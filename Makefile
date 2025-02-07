@@ -1,17 +1,15 @@
 CC = c++
-DEBUGGING_FLAGS += -Wall -Wextra -Werror -g
-OPENGL_FLAGS += -lglfw3 -lGL -lX11 -lpthread -lXrandr -lXi -ldl
+DEBUGGING_FLAGS += -Wall -Wextra -Werror -g -std=c++11
+OPENGL_FLAGS += -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl
 FLAGS += $(DEBUGGING_FLAGS) $(OPENGL_FLAGS)
-INCLUDE = -I./include -I./libs
 
 
 # ----------------------------- Sources ----------------------------- #
 
 NAME = scop
-FILES = 
-
-SRCS = $(addsuffix .cpp, $(FILES))
+FILES = scop
 OBJS = $(addsuffix .o, $(FILES))
+INCLUDE = -I./include -I./libraries
 
 
 # ------------------------------ Rules ------------------------------ #
@@ -19,12 +17,12 @@ OBJS = $(addsuffix .o, $(FILES))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) -o $@ $^ $(FLAGS) $(INCLUDE) libs/glad/glad.c
+	@$(CC) $(OBJS) -o $(NAME) $(FLAGS) $(INCLUDE) libraries/glad/glad.c
 	@echo "\r\033[K\033[38;2;0;170;0;1mSuccessfully compiled to \033[38;2;255;145;5;3m./$(NAME)\033[0m\033[38;2;0;170;0;1m!\033[0m"
 
 %.o: %.cpp
 	@echo -n "\r\033[38;2;0;170;0m$(CC) -o $@ -c $< $(FLAGS)"
-	@$(CC) -o $@ -c $< $(FLAGS)
+	$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJS)
