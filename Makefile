@@ -8,7 +8,8 @@ FLAGS += $(DEBUGGING_FLAGS) $(OPENGL_FLAGS)
 
 NAME = scop
 FILES = scop
-OBJS = $(addsuffix .o, $(FILES))
+SRCS = $(addprefix sources/, $(FILES))
+OBJS = $(addsuffix .o, $(SRCS))
 INCLUDE = -I./include -I./libraries
 
 
