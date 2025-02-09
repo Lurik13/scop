@@ -1,33 +1,26 @@
-#include "../includes/Scop.h"
+#include "../includes/Window.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    (void)window;
-    glViewport(0, 0, width, height);
-}
-
-void processInput(GLFWwindow *window)
-{
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}
-
-Scop::Scop()
+Window::Window()
 {
     this->init_window();
     this->create_window();
     this->init_glad();
     glViewport(0, 0, 800, 600);
-    glfwSetFramebufferSizeCallback(this->window, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(this->window, this->adjust_window_size_event);
     this->infinite_loop();
     glfwTerminate();
 }
 
-Scop::~Scop()
+Window::~Window()
 {
 }
 
-void Scop::init_window()
+GLFWwindow* Window::get_window()
+{
+    return (this->window);
+}
+
+void Window::init_window()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -35,7 +28,7 @@ void Scop::init_window()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
-void Scop::create_window()
+void Window::create_window()
 {
     this->window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
     if (this->window == NULL)
@@ -46,17 +39,29 @@ void Scop::create_window()
     glfwMakeContextCurrent(this->window);
 }
 
-void Scop::init_glad()
+void Window::init_glad()
 {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         throw (std::runtime_error("Failed to initialize GLAD."));
 }
 
-void Scop::infinite_loop()
+void Window::adjust_window_size_event(GLFWwindow* window, int width, int height)
+{
+    (void)window;
+    glViewport(0, 0, width, height);
+}
+
+void Window::handle_input_keys()
+{
+    if(glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(this->window, true);
+}
+
+void Window::infinite_loop()
 {
     while(!glfwWindowShouldClose(this->window))
     {
-        processInput(this->window);
+        this->handle_input_keys();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 

@@ -1,10 +1,10 @@
-#include "../includes/Scop.h"
+#include "../includes/Window.h"
 
 int main()
 {
     try
     {
-        Scop();
+        Window();
     }
     catch(const std::exception& e)
 	{
