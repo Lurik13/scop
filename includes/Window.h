@@ -5,6 +5,7 @@
 #include "../libraries/GLFW/glfw3.h"
 #include <iostream>
 #include <exception>
+#include <string>
 
 class Window
 {
