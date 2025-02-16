@@ -1,11 +1,13 @@
 #pragma once
 
+#include "Object.hpp"
 #include "../libraries/glad/glad.h"
 #include "../libraries/KHR/khrplatform.h"
 #include "../libraries/GLFW/glfw3.h"
 #include <iostream>
 #include <exception>
 #include <string>
+#include <cmath>
 
 class Window
 {
@@ -22,5 +24,6 @@ class Window
         void init_glad();
         static void adjust_window_size_event(GLFWwindow* window, int width, int height);
         void handle_input_keys();
-        void infinite_loop();
+        void infinite_loop(Object object);
+        void destroy_window(Object object);
 };
