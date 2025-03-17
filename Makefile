@@ -7,7 +7,7 @@ FLAGS += $(DEBUGGING_FLAGS) $(OPENGL_FLAGS)
 # ----------------------------- Sources ----------------------------- #
 
 NAME = scop
-FILES = main Window
+FILES = EBO main shaderClass VAO VBO
 SRCS = $(addprefix sources/, $(FILES))
 OBJS = $(addsuffix .o, $(SRCS))
 INCLUDE = -I./include -I./libraries
